@@ -81,7 +81,7 @@ app.post("/api/exercise/add", (req, res) => {
       data.log.push(
         {
           date: date,
-          duration: req.body.duration,
+          duration: parseInt(req.body.duration),
           description: req.body.description
         }
       );  
@@ -93,7 +93,7 @@ app.post("/api/exercise/add", (req, res) => {
           _id: data._id,
           username: data.username,
           date: formDate,
-          duration: req.body.duration,
+          duration: parseInt(req.body.duration),
           description: req.body.description
       });      
     });
