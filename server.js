@@ -28,7 +28,6 @@ const userSchema = new Schema ({
     date: {
       type: Date,
       required: false,
-      default: Date.now()
     },
     duration: {
       type: Number,
