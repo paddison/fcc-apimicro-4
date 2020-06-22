@@ -27,6 +27,7 @@ const userSchema = new Schema ({
   log: [{
     date: {
       type: Date,
+      required: false,
     },
     duration: {
       type: Number,
