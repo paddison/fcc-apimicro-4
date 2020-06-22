@@ -88,13 +88,12 @@ app.post("/api/exercise/add", (req, res) => {
       data.save((err, data) => {
         if (err) res.type("txt").send(err.message);
         let formDate = days[date.getDay()] + " " + months[date.getMonth()] + " " + date.getDate() + " " + date.getFullYear();
-        console.log(req.body.duration)
         res.json({
-          _id: data._id,
           username: data.username,
-          date: formDate,
+          description: req.body.description,
           duration: parseInt(req.body.duration),
-          description: req.body.description
+          _id: data._id,
+          date: formDate
       });      
     });
   });
