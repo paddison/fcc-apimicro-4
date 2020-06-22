@@ -76,8 +76,8 @@ app.post("/api/exercise/add", (req, res) => {
   if (!req.body.date) req.body.date = new Date();
   User.findById(req.body.userId, (err, data) => {
     if (err) throw err;
-    if(!data) res.json({error: "no user for id: " + req.body.userId});
-      let date = new Date(req.body.date)
+    if(!data) res.json({error: "no user for id"});
+      let date = new Date(req.body.date).toDateString()
       data.log.push(
         {
           date: date,
@@ -87,21 +87,16 @@ app.post("/api/exercise/add", (req, res) => {
       );  
       data.save((err, data) => {
         if (err) res.type("txt").send(err.message);
-        let formDate = days[date.getDay()] + " " + months[date.getMonth()] + " " + date.getDate() + " " + date.getFullYear();
         res.json({
           username: data.username,
           description: req.body.description,
           duration: parseInt(req.body.duration),
           _id: data._id,
-          date: formDate
+          date: new Date(req.body.date).toDateString()
       });      
     });
   });
 });
-
-// test: http://localhost:3000/api/exercise/log?userId=J7y3VWUjv&from=2013-05-20&to=2104-06-10&limit=5
-
-// bob J7y3VWUjv
 
 app.get("/api/exercise/users", (req, res) => {
   User.find({}, (err, data) => {
@@ -169,4 +164,3 @@ app.get("/api/exercise/log", (req, res) => {
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log('Your app is listening on port ' + listener.address().port)
 })
-
