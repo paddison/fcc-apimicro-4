@@ -92,7 +92,7 @@ app.post("/api/exercise/add", (req, res) => {
         res.json({
           _id: data._id,
           username: data.username,
-          date: formDate,
+          date: new Date(formDate),
           duration: parseInt(req.body.duration),
           description: req.body.description
       });      
