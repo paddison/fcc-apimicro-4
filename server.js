@@ -69,7 +69,7 @@ app.post("/api/exercise/new-user", (req, res) => {
   });
 });
 
-const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
  
 app.post("/api/exercise/add", (req, res) => {
