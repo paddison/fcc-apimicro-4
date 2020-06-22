@@ -69,14 +69,14 @@ app.post("/api/exercise/new-user", (req, res) => {
   });
 });
 
-const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
  
 app.post("/api/exercise/add", (req, res) => {
   if (!req.body.date) req.body.date = new Date();
   User.findById(req.body.userId, (err, data) => {
     if (err) throw err;
-    if(!data) res.json({error: "no user for id: " + req.body.userId});
+    if(!data) res.json({error: "no user for id"});
       let date = new Date(req.body.date)
       data.log.push(
         {
@@ -88,21 +88,16 @@ app.post("/api/exercise/add", (req, res) => {
       data.save((err, data) => {
         if (err) res.type("txt").send(err.message);
         let formDate = days[date.getDay()] + " " + months[date.getMonth()] + " " + date.getDate() + " " + date.getFullYear();
-        console.log(req.body.duration)
         res.json({
-          _id: data._id,
           username: data.username,
-          date: formDate,
+          description: req.body.description,
           duration: parseInt(req.body.duration),
-          description: req.body.description
+          _id: data._id,
+          date: formDate
       });      
     });
   });
 });
-
-// test: http://localhost:3000/api/exercise/log?userId=J7y3VWUjv&from=2013-05-20&to=2104-06-10&limit=5
-
-// bob J7y3VWUjv
 
 app.get("/api/exercise/users", (req, res) => {
   User.find({}, (err, data) => {
